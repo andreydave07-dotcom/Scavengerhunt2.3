@@ -223,22 +223,17 @@ canvas.width=window.innerWidth; canvas.height=window.innerHeight;
 
 let sparks=[]; 
 for(let i=0;i<100;i++){ 
-  const dx = (Math.random()-0.5)*0.6;
-  const dy = (Math.random()-0.5)*0.6;
   sparks.push({ 
     x:Math.random()*canvas.width, 
     y:Math.random()*canvas.height, 
     radius:Math.random()*2+1, 
-    dx: dx, 
-    dy: dy, 
-    baseDx: dx,     // store original speed
-    baseDy: dy,     // store original speed
-    color:"yellow",       
-    baseColor:"yellow",   
-    colorTimer:0          
+    dx:(Math.random()-0.5)*0.6, 
+    dy:(Math.random()-0.5)*0.6, 
+    color:"yellow",       // current color
+    baseColor:"yellow",   // original color to revert to
+    colorTimer:0          // timer for temporary color
   }); 
 }
-
 
 let sparksBurst=[]; 
 let gems=[];
@@ -281,16 +276,7 @@ function checkPassword(){
     document.getElementById("envelopeSection").classList.remove("hidden");
 
     // Sparks turn light green temporarily
-    sparks.forEach(s => { s.color="red"; s.colorTimer=30; s.dx *= 1.5; s.dy *= 1.5; });
-if(s.colorTimer>0){
-  s.colorTimer--;
-  if(s.colorTimer===0){
-    s.color = s.baseColor;
-    s.dx = s.baseDx;  // reset speed
-    s.dy = s.baseDy;  // reset speed
-  }
-}
-
+    sparks.forEach(s => { s.color="lightgreen"; s.colorTimer=60; s.dx *= 1.5; s.dy *= 1.5; });
     sparksBurst.forEach(s => { s.color="lightgreen"; s.colorTimer=60; s.dx *= 1.5; s.dy *= 1.5; });
   } else {
     // Wrong password: shake input & red border
@@ -387,3 +373,6 @@ window.onresize=()=>{canvas.width=window.innerWidth; canvas.height=window.innerH
 
 </body>
 </html>
+
+
+
